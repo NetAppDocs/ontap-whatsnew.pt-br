@@ -1,0 +1,244 @@
+---
+sidebar: sidebar 
+permalink: ontap98fo_simplicity_enhancements.html 
+keywords: System Manager, Health, Alerts, Capacity Views, Network Visualization, Performance Views, File System Analytics, FSA, Active NFS Clients, upgrade 
+summary: Esta página aborda os aprimoramentos do ONTAP 9.8 que aumentam a simplicidade, incluindo atualizações do Gerenciador de sistemas da ONTAP, melhorias na atualização técnica e na atualização do ONTAP e aprimoramentos na API REST. 
+---
+= Melhorias de simplicidade
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+Esta seção aborda melhorias do ONTAP 9.8 que melhoram a simplicidade. Isso inclui o seguinte:
+
+* Atualizações do Gerenciador de sistema do ONTAP
+* Melhorias na atualização técnica e na atualização do ONTAP
+* Aprimoramentos da API REST
+
+
+
+
+== Melhorias no System Manager
+
+O ONTAP 9.7 apresentou uma reformulação da GUI do System Manager, com a intenção de simplificar a maneira como os administradores gerenciam operações básicas do ONTAP, como provisionamento de storage e operações diárias. A nova GUI também utiliza APIS REST, que foram adicionadas no ONTAP 9.6. No ONTAP 9.8, a exibição clássica do Gerenciador de sistema foi removida.
+
+Uma das principais diferenças entre as interfaces é o dashboard, que é a primeira página que você acessa ao fazer login no Gerenciador de sistemas do NetApp ONTAP pela primeira vez.
+
+Os gráficos a seguir mostram uma comparação lado a lado das versões clássicas e novas do painel do System Manager.
+
+image:ontap98fo_image1.png["Erro: Imagem gráfica em falta"]
+
+Quando olhamos mais de perto, podemos ver algumas grandes diferenças.
+
+
+
+=== Saúde/Alertas
+
+Quando você faz login pela primeira vez no Classic System Manager, o canto superior esquerdo tem uma lista de falhas de cluster e nó. Estes são resumidos em links clicáveis. Quando você clica em um dos links, você é redirecionado para outra página no System Manager.
+
+Você também tinha uma área separada que mostra o estado de HA do cluster para ver se um nó falhou. Nas imagens a seguir, vemos a visualização do painel e o que vemos quando clicamos em um dos links―neste caso, nossos discos com falha.
+
+image:ontap98fo_image2.png["Erro: Imagem gráfica em falta"]
+
+Para ver outros alertas, você deve navegar de volta para o painel, o que leva tempo e cliques extras. Um dos objetivos da nova visualização do System Manager é simplificar esse processo.
+
+A figura a seguir mostra o novo painel do System Manager. As duas principais diferenças para as exibições de integridade e alerta são que agora temos o estado de HA do nó e os alertas na mesma janela e, em vez de clicar no painel principal, os alertas estão agora em uma caixa suspensa.
+
+image:ontap98fo_image3.png["Erro: Imagem gráfica em falta"]
+
+
+
+=== Visualizações de capacidade
+
+Cliques extras também são reduzidos para visualizações de capacidade. No clássico Gerenciador de sistemas do ONTAP, as taxas de capacidade e eficiência de storage foram encontradas em Visão geral do cluster e tinham guias para clicar para encontrar informações. A nova visualização do System Manager consolida as taxas de eficiência de storage e visualizações de capacidade em um único gráfico.
+
+
+NOTE: A nova IU aproveita o espaço lógico usado e o espaço físico disponível.
+
+image:ontap98fo_image4.png["Erro: Imagem gráfica em falta"]
+
+As visualizações de proteção de dados foram movidas para seu próprio painel em proteção. Essa página fornece uma visão mais profunda e mais granular da proteção de dados no cluster e também um local para utilizar a nova SnapMirror Business Continuity (SM-BC).
+
+image:ontap98fo_image5.png["Erro: Imagem gráfica em falta"]
+
+
+
+=== Visualização de rede
+
+O Gerenciador de sistema do ONTAP 9,8 também remove a exibição de aplicativos e objetos em favor de uma nova visualização de rede que mostra a topologia de rede para o cluster, bem como X vermelhos quando uma porta está inativa.
+
+image:ontap98fo_image6.png["Erro: Imagem gráfica em falta"]
+
+
+
+=== Visualizações de desempenho
+
+Agora, os gráficos de dados de desempenho no Gestor de sistema retêm dados para o cluster até 1 ano, em vez de terem os dados de desempenho clássicos do Gestor de sistema apenas disponíveis enquanto estiver a iniciar sessão. No Gestor de sistema ONTAP 9,8, pode clicar na hora, dia, semana, mês ou ano. Há também uma maneira de fazer o download dos dados de desempenho para um CSV.
+
+image:ontap98fo_image7.png["Erro: Imagem gráfica em falta"]
+
+
+
+=== Análise do sistema de arquivos
+
+Em ambientes com alta contagem de arquivos, tentar encontrar informações sobre a capacidade da pasta, a idade dos dados e a contagem de arquivos geralmente requer comandos ou scripts com uso intenso de tempo que executam operações seriais em protocolos nas, como `ls`, , `du` `find` e `stat`.
+
+O ONTAP System Manager 9,8 oferece uma maneira para os administradores descobrirem informações do sistema de arquivos em qualquer volume de storage nas com rapidez e facilidade, habilitando um scanner de baixo impactos para cada volume. Este scanner rastreia o sistema de arquivos ONTAP em segundo plano com um trabalho de baixa prioridade e fornece uma riqueza de informações que estão disponíveis assim que você navega para um volume no Gerenciador de sistema 9,8 ou posterior.
+
+Ativar o File Systems Analytics é tão fácil quanto navegar para o volume que deseja digitalizar. Aceda a armazenamento > volumes e, em seguida, utilize a pesquisa para encontrar o volume pretendido. Clique no volume e, em seguida, no separador Explorador.
+
+A partir daqui, você vê o link Habilitar análise no lado direito da página.
+
+image:ontap98fo_image8.png["Erro: Imagem gráfica em falta"]
+
+Depois de clicar em Ativar, o scanner é iniciado. O tempo de conclusão depende do número de objetos no volume, bem como da carga do sistema. Depois de terminar, você verá toda a estrutura de diretórios preenchida na exibição System Manager. Essa exibição pode ser navegada na árvore de diretórios e fornece acesso a informações de histórico, informações de tamanho de diretório e tamanhos de arquivo.
+
+A figura a seguir mostra exibições do volume Tech_ONTAP no meu cluster, que eu uso como um arquivo para http://techontappodcast.com/["NetApp Tech OnTap Podcast episódios"^]o .
+
+image:ontap98fo_image9.png["Erro: Imagem gráfica em falta"]
+
+Quando você clica em uma pasta, uma lista de arquivos aparece no lado direito da página.
+
+image:ontap98fo_image10.png["Erro: Imagem gráfica em falta"]
+
+Se você escolher, você pode ativar Mostrar tempo acessado para obter uma olhada na última vez que um arquivo foi acessado.
+
+image:ontap98fo_image11.png["Erro: Imagem gráfica em falta"]
+
+Na parte inferior da página, você pode ver quantos dados não foram acessados em um ano, bem como o diretório e o arquivo contagens nessa pasta.
+
+image:ontap98fo_image12.png["Erro: Imagem gráfica em falta"]
+
+Além de ser capaz de encontrar rapidamente tamanhos de arquivo e informações de diretório, esse recurso também fornece informações que podem ajudá-lo a decidir se a tecnologia NetApp FabricPool seria eficaz na redução da quantidade de dados inativos que está ocupando espaço em seus agregados.
+
+
+
+=== Clientes NFS ativos
+
+O ONTAP 9.7 introduziu uma maneira de ver quais clientes NFS estavam acessando volumes específicos em um cluster, bem como quais endereços IP de LIF de dados estavam sendo usados com o `nfs connected-clients` comando. Esse comando é abordado em detalhes https://www.netapp.com/us/media/tr-4067.pdf["TR-4067: Guia de práticas recomendadas e implementação de NFS da NetApp ONTAP"^] em . esse comando é útil para cenários em que você precisa descobrir quais clientes estão anexados ao sistema de storage, como atualizações, atualizações técnicas ou relatórios simples.
+
+O ONTAP System Manager 9,8 oferece uma maneira de ver esses clientes com a GUI, bem como uma maneira de exportar a lista para um arquivo .csv. Navegue até hosts > clientes NFS e você verá uma lista de clientes NFS que estavam ativos nas últimas 48 horas.
+
+image:ontap98fo_image13.png["Erro: Imagem gráfica em falta"]
+
+
+
+=== Outros aprimoramentos do System Manager 9,8
+
+O ONTAP 9.8 também traz os seguintes aprimoramentos para o Gerenciador de sistemas:
+
+|===
+|  |  
+
+
+ a| 
+* Rastreamento de segurança de arquivos nas (rastrear acesso a arquivos para solucionar problemas de permissões)
+* Configuração do banner de login (banner que aparece quando você faz login)
+* Configuração do MetroCluster
+* Nível de registo (ajuste o nível de registo efetuado no cluster)
+* Configuração SAML
+* Gerenciador de chaves integrado
+* Subsistema NVMe
+* Provisionamento automático de agregados e expansão de capacidade
+* Suporte à API REST para upload de imagens do ONTAP
+* Colocação automática da porta
+* Restauração do SnapMirror e ressincronização reversa
+
+ a| 
+* Atribuição de disco
+* Melhorias do FabricPool (políticas de disposição em camadas e marcação de objetos)
+* Adicionando nós ao cluster
+* Atualização direta sem interrupções para mais de 2 lançamentos de ONTAP (período de 2 anos)
+* Exibições de desempenho por protocolo
+* Gerenciamento do protocolo S3
+* Vários LUNs no mesmo volume
+* Vários movimentos de LUN
+* Atualizações de firmware com um único clique
+* Suporte à continuidade dos negócios da SnapMirror
+* Políticas de eficiência de storage
+* Melhorias no gerenciamento de volumes
+
+
+|===
+A figura a seguir mostra as atualizações de firmware do MetroCluster e de um clique.
+
+image:ontap98fo_image14.png["Erro: Imagem gráfica em falta"]
+
+
+
+== Aprimoramentos da API REST
+
+O suporte à API REST, adicionado ao ONTAP 9.6, permite que os administradores de storage aproveitem as chamadas de API padrão do setor para o storage ONTAP em seus scripts de automação sem a necessidade de interagir com a interface de linha de comando ou a interface gráfica do usuário (GUI).
+
+A documentação e amostras da API REST estão disponíveis com o System Manager. Basta navegar para a interface de gerenciamento de cluster a partir de um navegador da Web e adicionar `docs/api` ao endereço (usando HTTPS).
+
+Por exemplo:
+
+`https://cluster/docs/api`
+
+Esta página fornece um glossário interativo de APIs REST disponíveis, bem como um método para gerar suas próprias consultas de API REST.
+
+image:ontap98fo_image15.png["Erro: Imagem gráfica em falta"]
+
+No ONTAP 9.8, as APIS REST agora são anotadas com qual versão foram adicionadas, o que ajuda a simplificar a vida quando você está tentando manter seus scripts funcionando em várias versões do ONTAP.
+
+image:ontap98fo_image16.png["Erro: Imagem gráfica em falta"]
+
+A tabela a seguir fornece uma lista de novas APIs REST no ONTAP 9.8.
+
+|===
+|  |  
+
+
+ a| 
+*Cluster* * Histórico de firmware * Licenciamento de cluster – pools de capacidade * Licenciamento de cluster – gerentes de licenças * métricas de nós * upload de imagem de software * MetroCluster* * Mediador * Diagnóstico * Gerenciamento/criação * grupos de DR * interconexões * nós * operações * rede * métricas de porta Ethernet * informações de porta de switch * métricas de interface FC * grupos de pares BGP * métricas de interface de IP * políticas de serviço * SAN * métricas * métricas de NVMe * SAN* * métricas
+| *Segurança* * modo FIPS Ativar/desativar * encriptação de dados Ativar/desativar * NetApp FlexCache Registo de auditoria * políticas de Snapshot * políticas de eficiência de armazenamento * Gestão de ficheiros e diretórios (eliminação de sincronização, QoS e análise de sistemas de ficheiros) * nas* * Registo de auditoria S3 S3 S3 S3 
+|===
+Para obter mais informações sobre atualizações do Gerenciador de sistemas no ONTAP 9.8, consulte https://soundcloud.com/techontap_podcast/episode-266-netapp-system-manager-98["Tech OnTap Podcast episódio 266: Gerenciador de sistemas NetApp ONTAP 9,8"^] .
+
+
+
+== Melhorias de atualização e atualização técnica – ONTAP 9.8
+
+Tradicionalmente, as atualizações do ONTAP tiveram que acontecer em um ou dois lançamentos importantes para funcionar sem interrupções. Para administradores de armazenamento que não atualizam com frequência, isso se torna uma grande dor de cabeça e pesadelo logístico quando finalmente é hora de atualizar o ONTAP. Quem quer atualizar e reiniciar várias vezes em uma janela de manutenção?
+
+O ONTAP 9.8 agora oferece suporte a atualizações para lançamentos do ONTAP em um período de dois anos. Isso significa que se você quiser atualizar de 9,6 para 9,8, você pode fazer isso diretamente sem precisar ir para ONTAP 9.7.
+
+A tabela a seguir fornece uma matriz de atualizações de versão do NetApp ONTAP.
+
+|===
+| Ponto de partida | Atualização direta para: 
+
+
+| ONTAP 9,6 | ONTAP 9.7, ONTAP 9.8 
+
+
+| ONTAP 9,7 | ONTAP 9.8, ONTAP 9.n-2 
+
+
+| ONTAP 9,8 | ONTAP 9.n-1, ONTAP 9.n-2 
+|===
+Esse processo de atualização simplificado também fornece uma maneira de aprimorar as atualizações principais. Quando um novo nó de hardware é fornecido, ele tem a versão mais recente do ONTAP instalada. Anteriormente, se o cluster existente estava executando uma versão mais antiga do ONTAP, você tinha que atualizar os nós existentes para a mesma versão do ONTAP que o novo nó ou você teve que fazer o downgrade do novo nó para a versão mais antiga do ONTAP. E, como uma complicação adicional, se o hardware mais novo não puder ser desclassificado, você foi forçado a pegar uma janela de manutenção para atualizar o cluster existente.
+
+Com a janela de 2 anos de versão mista do ONTAP 9.8, agora você pode adicionar novos nós executando versões mais recentes do ONTAP em um cluster para permitir atualizações de controladora movendo volumes de nós executando o 9,8 para versões mais altas do ONTAP. Além disso, o processo de atualização de realocação de agregados sem interrupções permite a atualização do controlador de sistemas que precisam executar o ONTAP 9.8 (por exemplo, sistemas da série 8000) para modelos mais recentes introduzidos em versões posteriores do ONTAP.
+
+É recomendável limitar o tempo que o cluster do ONTAP opera em um estado de versão mista.
+
+image:ontap98fo_image17.png["Erro: Imagem gráfica em falta"]
+
+Esse processo também se estende às atualizações do cluster, onde você deseja trocar um par de HA inteiro de um cluster. Com a janela de revisão de 2 anos do ONTAP 9.8 e movimentos de volume sem interrupções, isso agora é possível.
+
+Os passos básicos são os seguintes:
+
+. Conete os novos sistemas a um cluster existente, com versões do ONTAP dentro de uma janela de 2 anos.
+. Use a movimentação de volume sem interrupções para evacuar os nós.
+. Desmarque os nós antigos do cluster.
+
+
+image:ontap98fo_image18.png["Erro: Imagem gráfica em falta"]
+
+link:ontap98fo_data_protocols.html["Próximo: Protocolos de dados"]

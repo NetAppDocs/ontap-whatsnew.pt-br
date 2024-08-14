@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: index.html 
+keywords: TR-4894, Introduction, NAS, SAN, S3, Snapshot, SnapMirror, SnapVault, HA 
+summary: O NetApp ONTAP é o principal software de gerenciamento de dados do setor que permite que você gerencie e proteja seus dados de forma otimizada onde quer que estejam, seja no local, na borda ou na nuvem. 
+---
+= TR-4894: Visão geral do recurso NetApp ONTAP 9.9,1
+:allow-uri-read: 
+
+
+Justin Parisi, NetApp
+
+O NetApp ONTAP é o principal software de gerenciamento de dados do setor que permite que você gerencie e proteja seus dados de forma otimizada onde quer que estejam, seja no local, na borda ou na nuvem.
+
+O NetApp ONTAP oferece suporte para os seguintes recursos, todos na mesma plataforma:
+
+* Protocolos nas (NFS e SMB)
+* Protocolos SAN (iSCSI, FCP e NVMe)
+* S3 Acesso a dados
+* Proteção de dados (tecnologias NetApp Snapshot copy, NetApp SnapMirror e SnapVault)
+* Eficiências de storage (deduplicação, compactação e compressão)
+* Failovers de alta disponibilidade (HA) (incluindo failovers rápidos para SAN de camada 1 com All SAN Array)
+* Suporte para configurações de disco all-flash, unidades giratórias e híbridas
+* Recursos de segurança (autenticação multifator, criptografia de volume NetApp e limpeza segura)
+
+
+Esta não é uma lista abrangente; se incluíssemos todos os recursos oferecidos pelo ONTAP, este documento teria centenas de páginas!
+
+Para obter informações mais detalhadas sobre o NetApp ONTAP, consulte https://www.netapp.com/pdf.html?item=/media/7413-ds-3231.pdf["Folha de dados do software de gerenciamento de dados ONTAP 9"^] a documentação do produto e .

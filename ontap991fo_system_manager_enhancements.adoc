@@ -1,0 +1,167 @@
+---
+sidebar: sidebar 
+permalink: ontap991fo_system_manager_enhancements.html 
+keywords: functionality, capacity display, enhancements, NVMe over Fibre Channel, 
+summary: No ONTAP 9.9,1, coletamos feedback dos clientes e abordamos algumas das preocupações relacionadas à GUI e adicionamos algumas das funcionalidades ausentes de volta, além de adicionar recursos novos e aprimorados. 
+---
+= Melhorias no System Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+Com a experiência de GUI renovada para ONTAP introduzida no ONTAP 9.8, você pode ter notado que algumas coisas mudaram ou não estavam mais disponíveis. No ONTAP 9.9,1, coletamos feedback dos clientes e abordamos algumas das preocupações relacionadas à GUI e adicionamos algumas das funcionalidades ausentes de volta, além de adicionar recursos novos e aprimorados. A seção a seguir cobre algumas dessas alterações e novas adições. Você também pode encontrar informações sobre o System Manager no https://docs.netapp.com/us-en/ontap/index.html["Documentos do System Manager"^].
+
+
+
+== Melhorias de funcionalidade restauradas/usabilidade
+
+Você pediu, e nós ouvimos. No ONTAP 9.9,1, algumas das funcionalidades que não estavam mais disponíveis no Gerenciador de sistemas ONTAP 9.8 foram adicionadas de volta ao produto. Além disso, novos aprimoramentos de usabilidade foram incluídos.
+
+
+
+=== Seleção manual de camadas/agregados locais durante o provisionamento de volume
+
+O System Manager 9.9.1 permite selecionar manualmente a camada de storage físico que deseja usar ao provisionar novos volumes, inclusive a capacidade de especificar agregados durante a criação de volumes do FlexGroup. Opcionalmente, você ainda pode permitir que o ONTAP e o Gerenciador de sistema façam seleções com base na lógica de posicionamento equilibrado.
+
+
+
+=== Melhorias na exibição da capacidade
+
+Agora você pode visualizar o espaço lógico usado pelas cópias Snapshot no ONTAP, além de ver como suas taxas de eficiência de storage são parecidas com as cópias Snapshot e sem elas.
+
+A figura a seguir mostra a visualização de capacidade do Gerenciador de sistemas ONTAP 9.9.1.
+
+image:ontap991fo_image1.jpeg["Erro: Imagem gráfica em falta"]
+
+
+
+=== NVMe em Fibre Channel – criação de LIF
+
+Com o System Manager, agora você pode criar e visualizar LIFs usadas com NVMe em namespaces Fibre Channel, incluindo status de porta, seleção assimétrica de porta e a capacidade de ver o número de LIFs criadas por porta para ajudar a evitar o carregamento excessivo de uma interface de rede física.
+
+
+
+=== Visualizador de eventos EMS – Painel de instrumentos
+
+Para uma visualização mais rápida de quais problemas podem estar presentes no cluster do ONTAP, o System Manager 9.9.1 adiciona eventos EMS no painel quando você faz o login pela primeira vez. Isso inclui erros nas últimas 24 horas, como discos quebrados, links de rede desativados, problemas de licença e erros de gaveta ou nó.
+
+Você também recebe avisos das últimas 24 horas, incluindo movimentos de volume com falha e alertas de monitor de saúde.
+
+
+
+=== Tamanhos de instantâneos e etiquetas SnapMirror
+
+Nas visualizações de snapshot no System Manager, é possível ver tamanhos e rótulos de snapshots (como diariamente, semanalmente, etc.) em cópias snapshot do SnapMirror.
+
+image:ontap991fo_image2.png["Erro: Imagem gráfica em falta"]
+
+
+
+=== Re-home data LIFs
+
+Durante failovers ou após as falhas de rede terem sido resolvidas, os LIFs de dados geralmente permanecem na porta de failover, o que pode criar possíveis preocupações de desempenho e resiliência. Se você precisa de uma maneira simples de enviar esses LIFs de dados de volta para casa, o System Manager 9.9.1 agora oferece um método de clique único para enviar todas as LIFs de dados de volta para suas portas iniciais pretendidas.
+
+
+
+=== Novos campos de volume para mostrar/ocultar
+
+Há maneiras adicionais de exibir informações de volume no System Manager 9.9.1 por meio do botão Mostrar/Ocultar, incluindo níveis locais e informações disponíveis/usadas.
+
+A figura a seguir descreve as novas exibições de volume no Gerenciador de sistema do ONTAP 9,9. 1.
+
+image:ontap991fo_image3.png["Erro: Imagem gráfica em falta"]
+
+
+
+=== Operações em massa
+
+Se você precisar executar várias movimentações ou exclusões de volume, mapear vários LUNs para um grupo de iniciadores ou adicionar vários volumes a uma camada de nuvem, agora você poderá selecionar vários objetos e executar tarefas. As exclusões de volume também vêm com uma maneira de ser capaz de desmontar, off-line e confirmar exclusões em uma única janela.
+
+A figura a seguir mostra exclusões simplificadas de volume no Gerenciador de sistema do ONTAP 9,9.1.
+
+image:ontap991fo_image4.png["Erro: Imagem gráfica em falta"]
+
+
+
+== Integração com a Active IQ
+
+Com o objetivo de fornecer aos usuários do ONTAP um único ponto de acesso para várias fontes de informação, o System Manager 9.9.1 oferece integração com a solução NetApp Active IQ. Isso fornece recomendações de firmware, bem como um método para baixar as imagens diretamente do site de suporte da NetApp e exibições de casos de suporte fáceis de acessar para quando você quiser ver o que está acontecendo com seu cluster. Basta navegar para o link suporte em cluster no menu à esquerda e Registrar o cluster com o Active IQ para começar.
+
+A figura a seguir mostra as exibições do Active IQ no Gerenciador de sistemas do ONTAP 9,9.1.
+
+image:ontap991fo_image5.png["Erro: Imagem gráfica em falta"]
+
+
+
+== Expansão da plataforma de visualização de hardware
+
+A visualização de hardware inclui informações como modelos de plataforma, números de série, status de aquisição/giveback, status do disco, informações de porta e muito mais. O ONTAP 9.9,1 traz suporte de plataforma adicional para visualização de hardware para incluir todas as plataformas AFF atuais.
+
+image:ontap991fo_image6.png["Erro: Imagem gráfica em falta"]
+
+Os seguintes componentes são suportados no ONTAP 9.9,1:
+
+* *Plataformas.* C190 / A220 / A250 / A300 / A400 / A700 / A700s / A800 / A320 / FAS500f
+* *Prateleiras de disco.* DS4243 / DS4486 / DS212C / DS2246 / DS224C / NS224
+* *Switches de rede.* Cisco Nexus 3232C / Cisco 9336C-FX2
+
+
+
+
+== Workflows do Ansible Playbook
+
+Cada vez mais empresas recorrem à automação das tarefas diárias com aplicações como o Ansible para fornecer workflows repetíveis e livres de erros. O NetApp tem uma biblioteca inteira de playbooks do Ansible disponíveis, e você pode encontrar essas e mais informações no https://www.netapp.com/devops-solutions/ansible/["Página do Ansible para NetApp"^].
+
+O System Manager 9.9.1 adiciona caminhos adicionais para usar o Ansible com uma nova maneira de gerar playbooks com um único clique. Para usar esses playbooks, instale o Ansible e a coleção NetApp do https://galaxy.ansible.com/netapp/ontap["Ansible Galaxy"^], mas você pode começar a criar playbooks clicando no link Salvar no Ansible Playbook em tarefas selecionadas de provisionamento de storage no Gerenciador do sistema.
+
+image:ontap991fo_image7.png["Erro: Imagem gráfica em falta"]
+
+Clicar nesse botão cria um arquivo .zip com os arquivos .yaml necessários para o Ansible.
+
+image:ontap991fo_image8.png["Erro: Imagem gráfica em falta"]
+
+
+
+== Melhorias na análise do sistema de arquivos
+
+Em ambientes com alta contagem de arquivos, tentar encontrar informações sobre a capacidade da pasta, a idade dos dados e a contagem de arquivos geralmente requer comandos ou scripts com uso intenso de tempo que executam operações seriais em protocolos nas, como `ls`, , `du` `find` e `stat`.
+
+O ONTAP System Manager 9,8 apresentou uma maneira de os administradores descobrirem informações do sistema de arquivos em qualquer volume de storage nas com rapidez e facilidade, habilitando um scanner de baixo impactos para cada volume. Este scanner rastreia o sistema de arquivos ONTAP em segundo plano com um trabalho de baixa prioridade e fornece uma riqueza de informações que estão disponíveis assim que você navega para um volume que o tenha ativado.
+
+Ativar https://docs.netapp.com/us-en/ontap/concept_nas_file_system_analytics_overview.html["Análise do sistema de arquivos"^] é tão fácil como navegar para o volume que pretende digitalizar. Aceda a armazenamento > volumes e, em seguida, utilize a pesquisa para encontrar o volume pretendido. Clique no volume e, em seguida, no separador Explorador.
+
+A partir daqui, você vê o link Habilitar análise no lado direito da página.
+
+image:ontap991fo_image9.png["Erro: Imagem gráfica em falta"]
+
+Depois de clicar em Ativar, o scanner é iniciado. O tempo de conclusão depende do número de objetos no volume, bem como da carga do sistema. Depois de terminar, você verá toda a estrutura de diretórios preenchida na exibição System Manager. Essa exibição pode ser navegada na árvore de diretórios e fornece acesso a informações de histórico, informações de tamanho de diretório e tamanhos de arquivo.
+
+O ONTAP 9.9,1 traz alguns aprimoramentos adicionais ao recurso, como filtragem por nome de arquivo ou diretório e execução https://docs.netapp.com/us-en/ontap/task_nas_file_system_analytics_take_corrective_action.html["eliminação rápida do diretório"^]do .
+
+
+
+== Outros aprimoramentos do System Manager 9.9.1
+
+ONTAP 9. O 9,1 também traz os seguintes aprimoramentos ao System Manager:
+
+|===
+|  |  
+
+
+ a| 
+* Grupos aninhados
+* Nuvem SnapMirror - backups e restaurações (somente ONTAP S3 e StorageGRID)
+* Expansão de todo o SAN Array
+* FlexCache pré-preencher, DR, ver economia de largura de banda
+
+ a| 
+* SVM-DR para FlexGroup volumes
+* Suporte em cascata e fan-out do SnapMirror para volumes FlexGroup
+* FabricPool: Ajuste ou altere os dias mínimos de resfriamento
+
+
+|===

@@ -1,0 +1,83 @@
+---
+sidebar: sidebar 
+permalink: ontap991fo_other_major_additions.html 
+keywords: FlexGroup, S3, NFSv4.2, MAC, 
+summary: Além dos aprimoramentos do Gerenciador de sistema, aprimoramentos de SAN e melhorias na proteção de dados, há algumas outras grandes adições ao ONTAP 9.9,1. 
+---
+= Outras grandes adições
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+Além dos aprimoramentos do Gerenciador de sistema, aprimoramentos de SAN e melhorias na proteção de dados, há algumas outras grandes adições ao ONTAP 9.9,1.
+
+
+
+== Contabilidade/imposição de espaço lógico – volumes FlexGroup
+
+A contabilidade de espaço lógico foi introduzida para volumes FlexVol no ONTAP 9.4. Ele permite que os administradores de storage mascarem a economia de eficiência de storage para que os usuários finais evitem a alocação excessiva de suas cotas de storage designadas.
+
+Por exemplo, se um usuário gravar 6TB TB em um volume 10TB TB e as eficiências de armazenamento economizarem 2TB TB, a contabilidade de espaço lógico pode controlar se o usuário vê 6TB TB ou 4TB TB.
+
+image:ontap991fo_image17.png["Erro: Imagem gráfica em falta"]
+
+O ONTAP 9.5 aprimorou esse recurso e adicionou suporte à aplicação de cota para FlexVols para dar mais controle aos administradores de storage, impedindo novas gravações de acordo com os limites de espaço lógico definidos. No entanto, os volumes do FlexGroup estavam faltando essa funcionalidade até o ONTAP 9.9,1.
+
+
+
+== Tags de metadados definidas pelo usuário do ONTAP S3
+
+O ONTAP 9.8 apresentou suporte ao protocolo S3 para a funcionalidade básica de storage de objetos.
+
+O suporte para S3 no ONTAP 9.8 incluiu o seguinte:
+
+* Acesso básico a objetos PUT/GET (não inclui acesso ao S3 e nas a partir do mesmo bucket)
++
+** Sem marcação de objetos ou suporte a ILM; para S3 rico em recursos, globalmente disperso, use https://www.netapp.com/data-storage/storagegrid/["NetApp StorageGRID"^].
+
+
+* Criptografia TLS 1,2
+* Carregamentos em várias partes
+* Portas ajustáveis
+* Vários buckets por volume
+* Políticas de acesso ao bucket
+* S3 como um alvo NetApp FabricPool
+
+
+O ONTAP 9.9,1 e posterior oferece suporte para marcação de metadados de objetos ao usar chamadas ObjectCreate e MultiPartUpload. Quando HEAD ou GET é executado em um objeto, os metadados definidos pelo usuário e a contagem do número de tags são retornados como parte do cabeçalho HTTP na resposta. Essas tags permitem categorizar melhor os objetos nos buckets do ONTAP para um gerenciamento de dados mais robusto e são compatíveis com aplicações que exigem a capacidade de criar metadados e tags.
+
+Para obter mais informações, consulte os seguintes recursos:
+
+* https://soundcloud.com/techontap_podcast/episode-268-netapp-fabricpool-and-s3-in-ontap-98["Tech OnTap Podcast: Episódio 268 - NetApp FabricPool e S3 em ONTAP 9.8"^]
+* https://www.netapp.com/us/media/tr-4814.pdf["ONTAP S3"^]
+
+
+
+
+== Etiquetas de segurança NFSv4,2
+
+O ONTAP 9.9,1 introduz suporte para o recurso NFSv4,2 chamado NFS, que é uma maneira de gerenciar o acesso granular a arquivos e pastas usando rótulos SELinux e Controle de Acesso obrigatório (MAC). Esses rótulos MAC são armazenados com arquivos e pastas e funcionam em conjunto com permissões UNIX e ACLs NFSv4.x. O suporte para NFS rotulado significa que a ONTAP agora reconhece e compreende as configurações de rótulo SELinux do cliente NFS. O NFS rotulado é coberto https://tools.ietf.org/html/rfc7204["RFC-7204"^] na .
+
+Os casos de uso incluem o seguinte:
+
+* MAC rotulagem de imagens de máquinas virtuais
+* Classificação de segurança de dados para o setor público (segredo, segredo, etc.)
+* Conformidade de segurança
+* Linux sem disco
+
+
+Nesta versão, o ONTAP suporta os seguintes modos de aplicação:
+
+* https://tools.ietf.org/html/rfc7204["Modo de servidor limitado"^]. O ONTAP não pode impor os rótulos, mas pode armazená-los e transmiti-los.
++
+** A capacidade de alterar rótulos MAC também depende do cliente para impor.
+
+
+* https://tools.ietf.org/html/rfc7204["Modo convidado"^]. Se o cliente não estiver identificado como NFS-Aware (v4,1 ou inferior), os rótulos MAC não serão transmitidos.
+
+
+O ONTAP não suporta atualmente https://tools.ietf.org/html/rfc7204["Modo completo"^] (armazenamento e aplicação de etiquetas MAC).
